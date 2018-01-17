@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- HTML5 Hello world by kirupa - http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm -->
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<title>Waller Project</title>
+<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+<style type="text/css">
+p {
+	font-family: 'Press Start 2P', cursive;
+}
+#inp {
+	font-size:24px;
+	font-family: 'Press Start 2P', cursive;
+}
+.response {
+	color:green;
+	margin-left:20px;
+}
+#quote {
+    font-family: 'Sofia';
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div id="mainContent">
+<h1 id="quote">
+	"How worn and dusty, then, must be the highways of the world, how deep the ruts of tradition and conformity!"
+	<br>-Henry David Thoreau, Walden 
+</h1>
+<div id="log">
+	<p>> Press "S" to Start.</p>
+</div>
+
+<input id="inp" autofocus/>
+
+<script>
+	 start = true; 
+	 paycheck = 0;
+	 points = 0;
+	 commands = [];
+	 phase = "study";
+	 barrier = 0;
+	 
+	 $('#inp').keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            //alert("You pressed enter!");
+            var input = $("#inp").val();
+            $("#inp").val("");
+            $("#log").append("<p> >" + input + "</p>");
+            $("#log").append("<p class=\"response\">>" + respond(input) + "</p>");
+            commands.push(input);
+            console.log(commands);
+        }
+	 });
+    
+    
+    function respond(command) {
+        var last;
+        if(commands.length > 0) {
+            last = commands[commands.length  - 1];
+        }
+        if(command == "S") {
+            reset();
+    		start = true;
+    		return "1000 points to win. <br> You are a factory worker. Your job is to tighten bolts. \"Tighten Bolt\" to get 10 points.";
+        }
+        if(phase == "study") {
+            switch(command) {
+    		case "Tighten Bolt":
+    		    console.log(last);
+    				paycheck += 10;
+    				points += 10;
+    			    if(points >= 1000 && paycheck >= 800) {
+    			        
+    			        return "You \"win\". At least, you got 1000 points. But did you live deeply? Did you really make your own choices? \
+    			        Did you go beyond your senses and see what is? If you want a second chance, press S to Start over.";
+    			    }
+    			    	return "You have  " + points + " points.";
+    	    case "": return "";
+    	    case "Y":
+    	        var rand = Math.floor(Math.random() * 10);
+    	        
+    	        switch(rand) {
+    	            case 0: 
+    	            case 1:
+    	            case 2:
+    	                return "You realize that factory work is wearing you down because when you are constantly surrounded by other people you have \
+    	                little time to discover who you are. You decide to get a cabin in the woods and become self-reliant and happier, freed from  \
+    	                your previous monotony. You die poor but happy.";
+    	           case 3: 
+    	           case 4:
+    	           case 5:
+    	               return "You examine your biases and realize that everyone has access to God and is inherently good. You join women's \
+    	               right's movements and create real change. Unfortunately, you are penniless and have to live with your parents the rest of your \
+    	               life. Whether you won depends on your perspective.";
+    	           case 6:
+    	               return "You decide to join school again. Unfortunately you wait until the last day before a big English project and make an \
+    	               ok choose your own adventure game.";
+    	           case 7:
+    	           case 8:
+    	           case 9:
+    	           case 10:
+    	               return "You decide to commit the ultimate act against conformity -- you start your own utopian community. It fails within a \
+    	               year like most of them did.";
+    	        }
+    	        
+    	        
+    	    default: return "You're getting tired of this, aren't you? You have a decision to make. If you keep going, you <b>will<b> get 1000 points. \
+    	    Or you could take a chance. Give up " + barrier + " points and see what happens. Say \"Y\" to take a chance. Otherwise just keep going ";
+        }}
+    	
+    }
+    
+    function reset() {
+        points = 0;
+        paycheck = 0;
+        commands = [];
+        $("#log").empty();
+        phase = "study";
+    }
+
+</script>
+</body>
+</html>
