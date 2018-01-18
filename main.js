@@ -228,6 +228,10 @@ function startGame(){
  risk = true;
  $("#warning").hide();
  time = 30;
+	$("#boat").css("margin-left", "0px");
+	$("#boat").css("margin-top", "0px");
+	$("#duck").css("margin-left", "150px");
+	$("#duck").css("margin-top", "150px");
  timer = setInterval(function() {
   time--;
   $("#timer").html("Seconds left: " + time);
